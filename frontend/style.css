@@ -1,0 +1,374 @@
+:root {
+    --primary-color: #0a2540;
+    --accent-color: #00d4ff;
+    --bg-color: #f6f9fc;
+    --card-bg: #ffffff;
+    --text-main: #32325d;
+    --text-light: #2d343a;
+    --success: #2dce89;
+    --danger: #e0315a;
+    --info: #7795f8;
+    --border-radius: 8px;
+    --border-color-light: #e6ebf1;
+    --shadow-light: 0 4px 10px rgba(50, 50, 93, 0.05);
+    --shadow-medium: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    margin: 0;
+    padding: 0;
+}
+
+/* Header estilo Dashboard */
+.app-header {
+    background: var(--primary-color);
+    color: white;
+    padding: 1rem 2rem;
+    box-shadow: var(--shadow-medium);
+}
+
+.logo {
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: 0.5px;
+}
+
+.subtitle {
+    font-weight: 300;
+    opacity: 0.8;
+    font-size: 0.9rem;
+    margin-left: 10px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* Cards (Elementos Flutuantes) */
+.card {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 30px;
+    box-shadow: var(--shadow-medium);
+    margin-bottom: 30px;
+    border: 1px solid var(--border-color-light);
+}
+
+h2 {
+    margin-top: 0;
+    color: var(--primary-color);
+}
+
+h3 {
+    color: var(--text-main);
+}
+
+/* Ajuste para h3 */
+h4 {
+    color: var(--text-main);
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+/* Ajuste para h4 */
+
+.description {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    margin-bottom: 25px;
+}
+
+/* Inputs e Áreas Desabilitadas */
+.input-group {
+    margin-bottom: 15px;
+    transition: opacity 0.3s;
+}
+
+label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+textarea {
+    width: 100%;
+    height: 120px;
+    padding: 12px;
+    border: 1px solid var(--border-color-light);
+    border-radius: var(--border-radius);
+    font-family: 'Inter', sans-serif;
+    resize: vertical;
+    transition: border 0.2s;
+    box-sizing: border-box;
+    color: var(--text-main);
+    /* Cor do texto no textarea */
+}
+
+textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: var(--shadow-light);
+}
+
+.disabled-area {
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+.divider {
+    text-align: center;
+    margin: 20px 0;
+    position: relative;
+}
+
+.divider::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--border-color-light);
+}
+
+.divider span {
+    background: white;
+    padding: 0 10px;
+    color: var(--text-light);
+    font-size: 0.8rem;
+    position: relative;
+}
+
+/* Botões de Ação do Formulário */
+.actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+button {
+    padding: 12px 24px;
+    border-radius: var(--border-radius);
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.1s, background-color 0.2s;
+    border: none;
+    font-size: 1rem;
+    /* Tamanho da fonte dos botões */
+}
+
+.btn-primary {
+    background: var(--primary-color);
+    color: white;
+    opacity: 0.6;
+    pointer-events: none;
+    flex-grow: 1;
+}
+
+.btn-primary.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.btn-primary:hover {
+    background-color: #1a3b5e;
+}
+
+.btn-secondary {
+    background: #f7fafc;
+    color: var(--text-main);
+    border: 1px solid var(--border-color-light);
+    flex-grow: 1;
+}
+
+.btn-secondary:hover {
+    background-color: #eceff4;
+}
+
+/* --- NOVO ESTILO PARA O INPUT DE ARQUIVO --- */
+.file-upload-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: block;
+    width: 25%;
+}
+
+.file-upload-wrapper input[type=file] {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    z-index: 2;
+}
+
+/* O visual do botão */
+.file-upload-wrapper::before {
+    content: "Selecionar arquivo"; /* Ícone mais corporativo */
+    display: block;
+    background: #ffffff; /* Fundo branco limpo */
+    color: var(--text-light); /* Cor de texto cinza suave */
+    border: 1px solid var(--border-color-light); /* Borda fina e sutil */
+    padding: 12px;
+    border-radius: var(--border-radius);
+    font-weight: 500; /* Peso da fonte normal */
+    text-align: center;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* Interação ao passar o mouse */
+.file-upload-wrapper:hover::before {
+    border-color: var(--accent-color); /* A borda fica azul clara */
+    color: var(--primary-color); /* O texto fica azul escuro */
+    background-color: #fcfcfd; /* Fundo muda quase imperceptivelmente */
+}
+
+.file-instruction {
+    display: block;
+    margin-top: 6px;
+    font-size: 0.75rem; /* Texto de instrução bem pequeno */
+    color: var(--text-light);
+    text-align: center;
+    opacity: 0.8;
+}
+
+/* --- FIM NOVO ESTILO INPUT ARQUIVO --- */
+
+
+/* Resultados */
+.result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* --- ESTILO ATUALIZADO PARA O BADGE DE CATEGORIA --- */
+.badge {
+    padding: 8px 16px;
+    /* Aumenta o padding */
+    border-radius: 25px;
+    /* Mais arredondado */
+    color: white;
+    font-size: 0.9rem;
+    /* Levemente maior */
+    font-weight: 700;
+    /* Mais negrito */
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    /* Espaçamento entre letras */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* Sombra sutil para destacar */
+    min-width: 100px;
+    /* Garante tamanho mínimo */
+    text-align: center;
+}
+
+.PRODUTIVO {
+    background-color: var(--danger);
+}
+
+.IMPRODUTIVO {
+    background-color: var(--info);
+}
+
+.result-body {
+    margin-top: 20px;
+}
+
+.section {
+    margin-bottom: 20px;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid var(--border-color-light);
+    margin: 25px 0;
+}
+
+.preview-text {
+    font-style: normal;
+    color: var(--text-main);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    background-color: #fcfcfd;
+    padding: 15px;
+    border-left: 3px solid var(--accent-color);
+    border-radius: var(--border-radius);
+}
+
+.response-box {
+    background: #f6f9fc;
+    padding: 15px;
+    border-radius: var(--border-radius);
+    border-left: 4px solid var(--primary-color);
+    white-space: pre-wrap;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-main);
+}
+
+.btn-copy {
+    background: var(--primary-color);
+    color: white;
+    font-size: 0.8rem;
+    margin-top: 15px;
+    padding: 8px 16px;
+    border-radius: var(--border-radius);
+}
+
+.btn-copy:hover {
+    background-color: #1a3b5e;
+}
+
+.hidden {
+    display: none;
+}
+
+#loadingState {
+    text-align: center;
+    padding: 20px;
+}
+
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border-left-color: var(--primary-color);
+    margin: 0 auto 10px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.error-card {
+    border-left: 5px solid var(--danger);
+    background-color: #fff0f3;
+    color: var(--danger);
+}
+
+.error-card h3 {
+    color: var(--danger);
+}
