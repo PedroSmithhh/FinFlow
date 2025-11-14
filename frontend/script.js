@@ -40,11 +40,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (fileInput) {
         fileInput.addEventListener('change', function() {
+            // Seleciona o elemento de texto que criamos no HTML
+            const fileNameDisplay = document.getElementById('file-name-display');
+
             if (this.files.length > 0) {
+                // ATUALIZAÇÃO: Exibe o nome do arquivo ao lado do botão
+                fileNameDisplay.textContent = this.files[0].name;
+
                 textInput.disabled = true;
                 textInput.placeholder = "Arquivo selecionado. Remova o arquivo para digitar.";
                 groupText.classList.add('disabled-area');
             } else {
+                // Se o usuário cancelar a seleção, limpa o texto
+                fileNameDisplay.textContent = '';
+
                 textInput.disabled = false;
                 textInput.placeholder = "Cole o corpo do e-mail aqui...";
                 groupText.classList.remove('disabled-area');
@@ -58,6 +67,11 @@ document.addEventListener('DOMContentLoaded', function() {
         resetBtn.addEventListener('click', function() {
             textInput.value = '';
             fileInput.value = '';
+            
+            // ATUALIZAÇÃO: Limpa o nome do arquivo visualmente
+            const fileNameDisplay = document.getElementById('file-name-display');
+            if (fileNameDisplay) fileNameDisplay.textContent = '';
+
             textInput.disabled = false;
             fileInput.disabled = false;
             groupText.classList.remove('disabled-area');

@@ -199,6 +199,22 @@ button {
     width: 25%;
 }
 
+.file-control-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.file-name-text {
+    font-size: 0.8rem;
+    color: var(--text-main);
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 65%;
+}
+
 .file-upload-wrapper input[type=file] {
     position: absolute;
     left: 0;

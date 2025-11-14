@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FinFlow</title>
+    <link rel="icon" type="image/x-icon" href="./frontend/img/logo.png">
+    <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
@@ -35,6 +37,7 @@
                     <div class="file-upload-wrapper">
                         <input type="file" name="email_file" id="email_file" accept=".txt,.pdf">
                     </div>
+                    <span id="file-name-display" class="file-name-text"></span>
                 </div>
 
                 <div class="actions">
