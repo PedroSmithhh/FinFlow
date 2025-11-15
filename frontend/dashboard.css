@@ -1,0 +1,43 @@
+.chart-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.chart-box {
+    flex-grow: 1;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-medium);
+    border: 1px solid var(--border-color-light);
+}
+
+.chart-box.pizza {
+    flex-basis: 30%;
+    min-width: 300px;
+}
+
+.chart-box.barras {
+    flex-basis: 60%;
+    min-width: 400px;
+}
+
+.chart-box h3 {
+    margin-top: 0;
+    color: var(--primary-color);
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 8px 12px;
+    border: 1px solid white;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+}
+
+.nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}

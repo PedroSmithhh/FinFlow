@@ -1,13 +1,66 @@
 document.addEventListener('DOMContentLoaded', function() {
     
     const textInput = document.getElementById('email_text');
+    const charCounter = document.getElementById('char-counter');
+    const MAX_CHARS = 15000;
     const fileInput = document.getElementById('email_file');
+    const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
     const groupText = document.getElementById('group-text');
     const groupFile = document.getElementById('group-file');
     const submitBtn = document.getElementById('submitBtn');
     const resetBtn = document.getElementById('resetBtn');
     const form = document.getElementById('analysisForm');
     const loadingDiv = document.getElementById('loadingState');
+
+
+    if (textInput && charCounter) {
+        textInput.addEventListener('input', function() {
+            const count = this.value.length;
+            charCounter.textContent = `${count} / ${MAX_CHARS}`;
+            
+            // Adiciona aviso visual perto do limite
+            if (count > MAX_CHARS * 0.9) {
+                charCounter.classList.add('limit-warning');
+            } else {
+                charCounter.classList.remove('limit-warning');
+            }
+        });
+    }
+
+    if (fileInput) {
+        fileInput.addEventListener('change', function() {
+            const fileNameDisplay = document.getElementById('file-name-display');
+            
+            if (this.files.length > 0) {
+                const file = this.files[0];
+                const nomeArquivo = file.name;
+
+                // 1. VERIFICA O TAMANHO
+                if (file.size > MAX_FILE_SIZE) {
+                    alert(`Arquivo muito grande!\n\nO arquivo "${nomeArquivo}" tem ${(file.size / 1024 / 1024).toFixed(1)}MB.\nO limite é 10MB.`);
+                    
+                    // Limpa o input
+                    this.value = ''; 
+                    fileNameDisplay.textContent = "Clique para selecionar arquivo";
+                    fileNameDisplay.classList.remove('file-selected');
+                    checkSubmit(); // Re-checa o botão (vai desabilitar)
+                    return; // Para a execução
+                }
+
+                // 2. Se o tamanho for OK, continua
+                fileNameDisplay.textContent = nomeArquivo;
+                fileNameDisplay.classList.add('file-selected');
+
+                textInput.disabled = true;
+                textInput.placeholder = "Arquivo selecionado...";
+                if (groupText) groupText.classList.add('disabled-area');
+
+            } else {
+
+            }
+            checkSubmit();
+        });
+    }
 
     // Função para verificar se pode enviar
     function checkSubmit() {
@@ -96,6 +149,5 @@ function copiarTexto() {
     if (responseBox) {
         const texto = responseBox.innerText;
         navigator.clipboard.writeText(texto);
-        alert('Resposta copiada para a área de transferência!');
     }
 }

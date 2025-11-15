@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FinFlow</title>
-    <link rel="icon" type="image/x-icon" href="./frontend/img/logo.png">
-    <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
@@ -14,6 +12,7 @@
 <div class="main-wrapper">
     <header class="app-header">
         <div class="logo">AutoU <span class="subtitle">AI Solutions</span></div>
+        <a href="/dashboard" class="nav-link">Dashboard</a>
     </header>
 
     <div class="container">
@@ -26,6 +25,7 @@
                 <div class="input-group" id="group-text">
                     <label for="email_text">Insira o conteúdo do email</label>
                     <textarea name="email_text" id="email_text" placeholder="Cole o corpo do e-mail aqui para análise imediata..."></textarea>
+                    <span id="char-counter" class="char-counter">0 / 15000</span>
                 </div>
 
                 <div class="divider">
@@ -67,9 +67,7 @@
                 <hr>
                 <div class="section">
                     <h4>Sugestão de Resposta</h4>
-                    <div class="response-box">
-                    {{ resultado.sugestao }}
-                    </div>
+                    <div class="response-box">{{- resultado.sugestao -}}</div>
                     <button class="btn-copy" onclick="copiarTexto()">Copiar Resposta</button>
                 </div>
             </div>

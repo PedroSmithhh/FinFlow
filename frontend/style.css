@@ -388,3 +388,45 @@ hr {
 .error-card h3 {
     color: var(--danger);
 }
+
+/* --- ESTILO DO CONTADOR DE CARACTERES --- */
+.label-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+}
+
+.char-counter {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-light);
+}
+
+/* Fica vermelho quando se aproxima do limite */
+.char-counter.limit-warning {
+    color: var(--danger);
+    font-weight: 600;
+}
+
+/* Ajuste no Header para alinhar o logo e o link */
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Estilo do link de navegação (já adicionado no dashboard.html, 
+   mas colocamos aqui para o index.html usar) */
+.nav-link {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 8px 12px;
+    border: 1px solid white;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+}
+.nav-link:hover {
+    background-color: rgba(255,255,255,0.1);
+}
