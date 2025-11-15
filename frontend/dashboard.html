@@ -6,8 +6,10 @@
     <title>Dashboard | FinFlow</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 </head>
 <body>
 
@@ -20,12 +22,12 @@
         <h2>Dashboard de Análise</h2>
         <p class="description">Visão geral do volume e classificação de e-mails processados.</p>
 
-        <div class="chart-container">
-            <div class="chart-box pizza">
+        <div class="dashboard-grid"> 
+            <div class="chart-card pizza">
                 <h3>Total de Classificações</h3>
                 <canvas id="pizzaChart"></canvas>
             </div>
-            <div class="chart-box barras">
+            <div class="chart-card barras">
                 <h3>Volume por Dia (Últimos 7 dias)</h3>
                 <canvas id="barChart"></canvas>
             </div>
@@ -33,7 +35,7 @@
     </div>
 </div>
 
-<div id="dashboard-data-container" data-json="{{ dados_dashboard | tojson | safe }}" style="display: none;"></div>
+<div id="dashboard-data-container" data-json='{{ dados_dashboard | tojson | safe }}' style="display: none;"></div>
 
 <script src="{{ url_for('static', filename='dashboard.js') }}"></script>
 
