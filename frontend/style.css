@@ -22,7 +22,6 @@ body {
     padding: 0;
 }
 
-/* Header estilo Dashboard */
 .app-header {
     background: var(--primary-color);
     color: white;
@@ -49,7 +48,6 @@ body {
     padding: 0 20px;
 }
 
-/* Cards (Elementos Flutuantes) */
 .card {
     background: var(--card-bg);
     border-radius: var(--border-radius);
@@ -68,14 +66,11 @@ h3 {
     color: var(--text-main);
 }
 
-/* Ajuste para h3 */
 h4 {
     color: var(--text-main);
     font-size: 1rem;
     margin-bottom: 10px;
 }
-
-/* Ajuste para h4 */
 
 .description {
     color: var(--text-light);
@@ -83,7 +78,6 @@ h4 {
     margin-bottom: 25px;
 }
 
-/* Inputs e Áreas Desabilitadas */
 .input-group {
     margin-bottom: 15px;
     transition: opacity 0.3s;
@@ -107,7 +101,6 @@ textarea {
     transition: border 0.2s;
     box-sizing: border-box;
     color: var(--text-main);
-    /* Cor do texto no textarea */
 }
 
 textarea:focus {
@@ -145,7 +138,6 @@ textarea:focus {
     position: relative;
 }
 
-/* Botões de Ação do Formulário */
 .actions {
     display: flex;
     gap: 10px;
@@ -160,7 +152,6 @@ button {
     transition: transform 0.1s, background-color 0.2s;
     border: none;
     font-size: 1rem;
-    /* Tamanho da fonte dos botões */
 }
 
 .btn-primary {
@@ -191,7 +182,6 @@ button {
     background-color: #eceff4;
 }
 
-/* --- NOVO ESTILO PARA O INPUT DE ARQUIVO --- */
 .file-upload-wrapper {
     position: relative;
     overflow: hidden;
@@ -226,16 +216,15 @@ button {
     z-index: 2;
 }
 
-/* O visual do botão */
 .file-upload-wrapper::before {
-    content: "Selecionar arquivo"; /* Ícone mais corporativo */
+    content: "Selecionar arquivo";
     display: block;
-    background: #ffffff; /* Fundo branco limpo */
-    color: var(--text-light); /* Cor de texto cinza suave */
-    border: 1px solid var(--border-color-light); /* Borda fina e sutil */
+    background: #ffffff;
+    color: var(--text-light);
+    border: 1px solid var(--border-color-light);
     padding: 12px;
     border-radius: var(--border-radius);
-    font-weight: 500; /* Peso da fonte normal */
+    font-weight: 500;
     text-align: center;
     font-size: 0.9rem;
     transition: all 0.2s ease;
@@ -245,26 +234,21 @@ button {
     gap: 8px;
 }
 
-/* Interação ao passar o mouse */
 .file-upload-wrapper:hover::before {
-    border-color: var(--accent-color); /* A borda fica azul clara */
-    color: var(--primary-color); /* O texto fica azul escuro */
-    background-color: #fcfcfd; /* Fundo muda quase imperceptivelmente */
+    border-color: var(--accent-color);
+    color: var(--primary-color);
+    background-color: #fcfcfd;
 }
 
 .file-instruction {
     display: block;
     margin-top: 6px;
-    font-size: 0.75rem; /* Texto de instrução bem pequeno */
+    font-size: 0.75rem;
     color: var(--text-light);
     text-align: center;
     opacity: 0.8;
 }
 
-/* --- FIM NOVO ESTILO INPUT ARQUIVO --- */
-
-
-/* Resultados */
 .result-header {
     display: flex;
     justify-content: space-between;
@@ -272,24 +256,16 @@ button {
     margin-bottom: 20px;
 }
 
-/* --- ESTILO ATUALIZADO PARA O BADGE DE CATEGORIA --- */
 .badge {
     padding: 8px 16px;
-    /* Aumenta o padding */
     border-radius: 25px;
-    /* Mais arredondado */
     color: white;
     font-size: 0.9rem;
-    /* Levemente maior */
     font-weight: 700;
-    /* Mais negrito */
     text-transform: uppercase;
     letter-spacing: 1.2px;
-    /* Espaçamento entre letras */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    /* Sombra sutil para destacar */
     min-width: 100px;
-    /* Garante tamanho mínimo */
     text-align: center;
 }
 
@@ -389,7 +365,6 @@ hr {
     color: var(--danger);
 }
 
-/* --- ESTILO DO CONTADOR DE CARACTERES --- */
 .label-container {
     display: flex;
     justify-content: space-between;
@@ -403,21 +378,17 @@ hr {
     color: var(--text-light);
 }
 
-/* Fica vermelho quando se aproxima do limite */
 .char-counter.limit-warning {
     color: var(--danger);
     font-weight: 600;
 }
 
-/* Ajuste no Header para alinhar o logo e o link */
 .app-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-/* Estilo do link de navegação (já adicionado no dashboard.html, 
-   mas colocamos aqui para o index.html usar) */
 .nav-link {
     color: white;
     text-decoration: none;

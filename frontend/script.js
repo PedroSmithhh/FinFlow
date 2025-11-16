@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const file = this.files[0];
                 const nomeArquivo = file.name;
 
-                // 1. VERIFICA O TAMANHO
+                // VERIFICA O TAMANHO
                 if (file.size > MAX_FILE_SIZE) {
                     alert(`Arquivo muito grande!\n\nO arquivo "${nomeArquivo}" tem ${(file.size / 1024 / 1024).toFixed(1)}MB.\nO limite é 10MB.`);
                     
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     return; // Para a execução
                 }
 
-                // 2. Se o tamanho for OK, continua
+                // Se o tamanho for OK, continua
                 fileNameDisplay.textContent = nomeArquivo;
                 fileNameDisplay.classList.add('file-selected');
 

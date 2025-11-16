@@ -1,20 +1,17 @@
-/* frontend/dashboard.css - ESTILOS PROFISSIONAIS PARA O DASHBOARD */
-
-/* Variáveis de cor (se não estiverem em style.css, adicione aqui ou garanta que style.css é carregado primeiro) */
 :root {
-    --primary-color: #0a2540; /* Azul profundo "Banco" */
-    --accent-color: #00d4ff;  /* Azul tech para detalhes e foco */
+    --primary-color: #0a2540;
+    --accent-color: #00d4ff;
     --bg-color: #f6f9fc;
     --card-bg: #ffffff;
     --text-main: #32325d;
     --text-light: #8898aa;
-    --success: #2dce89; /* Verde para sucesso ou positivo */
-    --danger: #e0315a;  /* Vermelho mais elegante para perigo/urgência */
-    --info: #7795f8;    /* Azul suave para informação/improdutivo */
+    --success: #2dce89;
+    --danger: #e0315a;
+    --info: #7795f8;
     --border-radius: 8px;
     --border-color-light: #e6ebf1;
-    --shadow-light: 0 4px 10px rgba(50,50,93,0.05);
-    --shadow-medium: 0 15px 35px rgba(50,50,93,0.1), 0 5px 15px rgba(0,0,0,0.07);
+    --shadow-light: 0 4px 10px rgba(50, 50, 93, 0.05);
+    --shadow-medium: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);
 }
 
 body {
@@ -25,25 +22,27 @@ body {
     padding: 0;
 }
 
-/* Header estilo Dashboard - Agora mais genérico */
 .app-header {
     background: var(--primary-color);
     color: white;
     padding: 1rem 2rem;
     box-shadow: var(--shadow-medium);
     display: flex;
-    justify-content: space-between; /* Alinha logo e link */
+    justify-content: space-between;
     align-items: center;
 }
+
 .app-header .logo-container {
     display: flex;
     align-items: center;
 }
+
 .app-logo {
     height: 40px;
     width: auto;
     display: block;
 }
+
 .nav-link {
     color: white;
     text-decoration: none;
@@ -53,42 +52,53 @@ body {
     border-radius: 6px;
     transition: background-color 0.2s;
 }
+
 .nav-link:hover {
-    background-color: rgba(255,255,255,0.1);
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .container {
-    max-width: 1000px; /* Mais largura para o dashboard */
+    max-width: 1000px;
     margin: 40px auto;
     padding: 0 20px;
 }
 
-h2 { margin-top: 0; color: var(--primary-color); font-size: 1.8rem; }
-h3 { color: var(--text-main); font-size: 1.2rem; margin-bottom: 20px;} /* Títulos dos cards */
-.description { color: var(--text-light); font-size: 0.95rem; margin-bottom: 30px; }
+h2 {
+    margin-top: 0;
+    color: var(--primary-color);
+    font-size: 1.8rem;
+}
 
+h3 {
+    color: var(--text-main);
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
 
-/* --- GRID LAYOUT PARA OS GRÁFICOS (ALINHAMENTO E RESPONSIVIDADE) --- */
+.description {
+    color: var(--text-light);
+    font-size: 0.95rem;
+    margin-bottom: 30px;
+}
+
 .dashboard-grid {
     display: grid;
-    grid-template-columns: 1fr; /* Padrão: uma coluna (celulares) */
-    gap: 30px; /* Espaço entre os cards */
+    grid-template-columns: 1fr;
+    gap: 30px;
 }
 
-/* Para telas maiores (tablets e desktops), duas colunas */
 @media (min-width: 768px) {
     .dashboard-grid {
-        grid-template-columns: 1.2fr 2fr; /* Pizza um pouco menor, Barras maiores */
+        grid-template-columns: 1.2fr 2fr;
     }
 }
+
 @media (min-width: 1024px) {
     .dashboard-grid {
-        grid-template-columns: 1fr 2fr; /* Mais uma vez ajusta para telas grandes */
+        grid-template-columns: 1fr 2fr;
     }
 }
 
-
-/* --- ESTILO DOS CARDS DE GRÁFICO --- */
 .chart-card {
     background: var(--card-bg);
     border-radius: var(--border-radius);
@@ -97,18 +107,18 @@ h3 { color: var(--text-main); font-size: 1.2rem; margin-bottom: 20px;} /* Títul
     padding: 25px;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centraliza o conteúdo (título e gráfico) */
+    align-items: center;
 }
 
 .chart-card canvas {
-    max-width: 100%; /* Garante que o canvas não estoure o card */
-    height: auto !important; /* Respeita a proporção */
+    max-width: 100%;
+    height: auto !important;
 }
 
-/* Alturas fixas para manter proporções e alinhamento visual */
 .chart-card.pizza canvas {
-    max-height: 250px; /* Altura máxima para a pizza */
+    max-height: 250px;
 }
+
 .chart-card.barras canvas {
-    max-height: 350px; /* Altura máxima para o gráfico de barras */
+    max-height: 350px;
 }

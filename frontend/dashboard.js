@@ -1,5 +1,3 @@
-// frontend/dashboard.js
-
 document.addEventListener('DOMContentLoaded', function() {
     
     // Registrar o plugin datalabels globalmente
@@ -16,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Calcula o total para as porcentagens
     const totalPizza = dados.pizza.produtivo + dados.pizza.improdutivo;
 
-    // 3. Lógica do Gráfico de Pizza (com porcentagens)
+    // Gráfico de Pizza (com porcentagens)
     const ctxPizza = document.getElementById('pizzaChart');
     if (ctxPizza) {
         new Chart(ctxPizza.getContext('2d'), {
@@ -61,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 4. Lógica do Gráfico de Barras
+    // Gráfico de Barras
     const ctxBar = document.getElementById('barChart');
     if (ctxBar) {
         new Chart(ctxBar.getContext('2d'), {
