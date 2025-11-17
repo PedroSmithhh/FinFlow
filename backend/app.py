@@ -3,7 +3,7 @@ from flask import Flask, render_template, request, session, redirect, url_for
 import google.generativeai as genai
 from dotenv import load_dotenv
 import pypdf
-from database import init_db, salvar_historico, get_dados_dashboard
+from .database import init_db, salvar_historico, get_dados_dashboard
 
 def limpar_texto(texto):
     return " ".join(texto.split())
@@ -63,10 +63,12 @@ def index():
                 email_usuario = texto_input
 
             else:
-                return render_template('index.html', resultado={"erro": "Por favor, insira um texto ou anexe um arquivo."})
+                session['resultado'] = {"erro": "Por favor, insira um texto ou anexe um arquivo."}
+                return redirect(url_for('index'))
 
             if not email_usuario.strip():
-                return render_template('index.html', resultado={"erro": "Nenhum contéudo fornecido"})
+                session['resultado'] = {"erro": "Nenhum contéudo fornecido"}
+                return redirect(url_for('index'))
             
             email_limpo = " ".join(email_usuario.split())
 
@@ -148,10 +150,7 @@ def dashboard():
     
     # 2. Envia os dados para o novo template
     return render_template('dashboard.html', dados_dashboard=dados_db)
-
-
-init_db()
-
-    
+   
 if __name__ == '__main__':
+    init_db()
     app.run(debug=True)
