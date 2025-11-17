@@ -1,8 +1,11 @@
 import psycopg2
 import os
 from datetime import datetime
+import logging
 
 DATABASE_URL = os.getenv("DATABASE_URL")
+
+logging.basicConfig(level=logging.INFO)
 
 def get_db_connection():
     """Cria uma conexão com o banco de dados PostgreSQL."""
@@ -10,7 +13,7 @@ def get_db_connection():
         conn = psycopg2.connect(DATABASE_URL)
         return conn
     except Exception as e:
-        print(f"Erro ao conectar ao banco de dados: {e}")
+        logging.error(f"FALHA EM get_db_connection: {e}")
         return None
 
 def init_db():
@@ -35,9 +38,9 @@ def init_db():
         conn.commit()
         cursor.close()
         conn.close()
-        print("Banco de dados (PostgreSQL) inicializado com sucesso.")
+        logging.info("Banco de dados (PostgreSQL) inicializado com sucesso.")
     except Exception as e:
-        print(f"Erro ao inicializar o banco de dados (PostgreSQL): {e}")
+        logging.error(f"FALHA EM init_db: {e}")
 
 def salvar_historico(categoria):
     """
@@ -49,15 +52,20 @@ def salvar_historico(categoria):
             raise Exception("Não foi possível conectar ao banco para salvar.")
             
         cursor = conn.cursor()
+        logging.info(f"Tentando salvar a categoria: {categoria}")
         
         # PostgreSQL usa %s como placeholder, NÃO usa ?.
         cursor.execute("INSERT INTO historico (categoria) VALUES (%s)", (categoria,))
         
         conn.commit()
         cursor.close()
-        conn.close()
+
+        logging.info("Salvo com sucesso no banco de dados.")
     except Exception as e:
-        print(f"Erro ao salvar histórico no banco de dados: {e}")
+        logging.error(f"FALHA EM salvar_historico: {e}")
+    finally:
+        if conn:
+            conn.close()
 
 def get_dados_dashboard():
     """
@@ -67,11 +75,11 @@ def get_dados_dashboard():
         'pizza': {'produtivo': 0, 'improdutivo': 0},
         'barras': {'labels': [], 'data': []}
     }
-    
+    conn = None # Inicia como None
     try:
         conn = get_db_connection()
         if conn is None:
-            raise Exception("Não foi possível conectar ao banco para ler dados.")
+            raise Exception("Conexão com o banco retornou None.")
 
         cursor = conn.cursor()
 
@@ -84,7 +92,6 @@ def get_dados_dashboard():
                 dados['pizza']['improdutivo'] = row[1]
 
         # Query 2: Gráfico de Barras (Últimos 7 dias)
-        # A sintaxe do PostgreSQL para datas é diferente do SQLite.
         cursor.execute("""
             SELECT DATE(criado_em) as dia, COUNT(*) 
             FROM historico 
@@ -94,13 +101,14 @@ def get_dados_dashboard():
         """)
         
         for row in cursor.fetchall():
-            # Converte o objeto 'date' do Python para uma string formatada
             dados['barras']['labels'].append(row[0].strftime('%Y-%m-%d'))
             dados['barras']['data'].append(row[1])
 
-        cursor.close()
-        conn.close()
     except Exception as e:
-        print(f"Erro ao ler dados do dashboard: {e}")
+        # 5. Mudar de 'print' para 'logging.error'
+        logging.error(f"FALHA EM get_dados_dashboard: {e}")
+    finally:
+        if conn:
+            conn.close() # Garante que a conexão é sempre fechada
     
     return dados
