@@ -27,3 +27,6 @@ images:
 - 'us-central1-docker.pkg.dev/$PROJECT_ID/finflow-repo/finflow:latest'
 
 timeout: '1600s'
+
+options:
+  logging: CLOUD_LOGGING_ONLY
