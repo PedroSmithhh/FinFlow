@@ -22,17 +22,127 @@ body {
     padding: 0;
 }
 
-.app-header {
-    background: var(--primary-color);
+body.dark-mode {
+    --bg-color: #1a1a2e;
+    --card-bg: #24243e;
+    --text-main: #f0f0f0;
+    --text-light: #b0b0c0;
+    --border-color-light: #3a3a5a;
+    --shadow-light: 0 4px 10px rgba(0, 0, 0, 0.1);
+    --shadow-medium: 0 15px 35px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.1);
+    --file-selected-bg: #3a3a5a;
+}
+
+/* --- CORREÇÕES PONTUAIS DO TEMA ESCURO --- */
+
+/* 1. Corrige o H2 (título "FinFlow") que ficava escuro */
+body.dark-mode h2 {
+    color: var(--accent-color);
+    /* Usa a cor de destaque azul claro */
+}
+
+/* 2. Corrige o botão "Limpar" (btn-secondary) */
+body.dark-mode .btn-secondary {
+    background-color: var(--border-color-light);
+    /* Fundo cinza escuro */
+    color: var(--text-main);
+    /* Texto claro */
+    border-color: var(--border-color-light);
+}
+
+body.dark-mode .btn-secondary:hover {
+    background-color: #4a4a6a;
+    /* Um pouco mais claro no hover */
+}
+
+/* 3. Corrige as caixas de texto brancas */
+body.dark-mode textarea {
+    background-color: var(--bg-color);
+    /* Fundo mais escuro */
+    color: var(--text-main);
+    border-color: var(--border-color-light);
+}
+
+body.dark-mode textarea:focus {
+    border-color: var(--accent-color);
+}
+
+/* 4. Corrige o "OU" transparente */
+body.dark-mode .divider::before {
+    background: var(--border-color-light);
+    /* Linha escura */
+}
+
+body.dark-mode .divider span {
+    background: var(--card-bg);
+    /* Fundo do card */
+    color: var(--text-light);
+}
+
+/* 5. Corrige o botão de upload de arquivo */
+body.dark-mode .file-upload-wrapper::before {
+    background: var(--bg-color);
+    color: var(--text-light);
+    border-color: var(--border-color-light);
+}
+
+body.dark-mode .file-upload-wrapper:hover::before {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+}
+
+body.dark-mode .file-name-text {
+    color: var(--text-main);
+}
+
+.theme-toggle-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    /* Espaço entre o link "Dashboard" e o botão de tema */
+}
+
+body.dark-mode .response-box {
+    background: #1a1a2e;
+    border-left-color: var(--accent-color);
+}
+
+.theme-toggle-btn {
+    background: none;
+    border: 1px solid white;
     color: white;
-    padding: 1rem 2rem;
-    box-shadow: var(--shadow-medium);
+    font-size: 1.2rem;
+    padding: 5px 10px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+body.dark-mode .preview-text {
+    background-color: var(--bg-color);
+    /* Fundo principal escuro */
+    color: var(--text-light);
+    /* Texto secundário claro */
+    border-left-color: var(--accent-color);
+    /* Borda de destaque azul */
 }
 
 .logo {
     font-weight: 700;
     font-size: 1.2rem;
     letter-spacing: 0.5px;
+    color: white; /* Garante que o texto AutoU seja branco */
+}
+
+.app-header {
+    background: var(--primary-color);
+    color: white;
+    padding: 1rem 2rem;
+    box-shadow: var(--shadow-medium);
 }
 
 .subtitle {
@@ -398,6 +508,7 @@ hr {
     border-radius: 6px;
     transition: background-color 0.2s;
 }
+
 .nav-link:hover {
-    background-color: rgba(255,255,255,0.1);
+    background-color: rgba(255, 255, 255, 0.1);
 }

@@ -1,88 +1,100 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FinFlow</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/favicon.png') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
-<div class="main-wrapper">
-    <header class="app-header">
-        <div class="logo">AutoU <span class="subtitle">AI Solutions</span></div>
-        <a href="/dashboard" class="nav-link">Dashboard</a>
-    </header>
+    <div class="main-wrapper">
+        <header class="app-header">
+            <div class="logo">AutoU <span class="subtitle">AI Solutions</span></div>
 
-    <div class="container">
-        <div class="card input-card">
-            <h2>FinFlow</h2>
-            <p class="description">Selecione o método de entrada para classificar a demanda.</p>
+            <div class="header-controls">
+                <a href="/dashboard" class="nav-link">Dashboard</a>
+                <button id="theme-toggle" class="theme-toggle-btn" aria-label="Alternar tema">🌙</button>
+            </div>
+        </header>
 
-            <form method="POST" enctype="multipart/form-data" id="analysisForm">
-                
-                <div class="input-group" id="group-text">
-                    <label for="email_text">Insira o conteúdo do email</label>
-                    <textarea name="email_text" id="email_text" placeholder="Cole o corpo do e-mail aqui para análise imediata..."></textarea>
-                    <span id="char-counter" class="char-counter">0 / 15000</span>
-                </div>
+        <div class="container">
+            <div class="card input-card">
+                <h2>FinFlow</h2>
+                <p class="description">Boas-vindas ao FinFlow. Sua plataforma inteligente para triagem e resposta de
+                    e-mails.</p>
 
-                <div class="divider">
-                    <span>OU</span>
-                </div>
-                
-                <div class="input-group" id="group-file">
-                    <label for="email_file">Faça o upload de arquivo (.pdf, .txt)</label>
-                    <div class="file-upload-wrapper">
-                        <input type="file" name="email_file" id="email_file" accept=".txt,.pdf">
+                <form method="POST" enctype="multipart/form-data" id="analysisForm">
+
+                    <div class="input-group" id="group-text">
+                        <label for="email_text">Insira o conteúdo do email</label>
+                        <textarea name="email_text" id="email_text"
+                            placeholder="Cole o corpo do e-mail aqui para análise imediata..."></textarea>
+                        <span id="char-counter" class="char-counter">0 / 15000</span>
                     </div>
-                    <span id="file-name-display" class="file-name-text"></span>
-                </div>
 
-                <div class="actions">
-                    <button type="submit" id="submitBtn" class="btn-primary" disabled>Iniciar Análise</button>
-                    <button type="button" id="resetBtn" class="btn-secondary">Limpar</button>
-                </div>
-            </form>
+                    <div class="divider">
+                        <span>OU</span>
+                    </div>
 
-            <div id="loadingState" class="hidden">
-                <div class="spinner"></div>
-                <p>Processando...</p>
-            </div>
-        </div>
+                    <div class="input-group" id="group-file">
+                        <label for="email_file">Faça o upload de arquivo (.pdf, .txt)</label>
+                        <div class="file-upload-wrapper">
+                            <input type="file" name="email_file" id="email_file" accept=".txt,.pdf">
+                        </div>
+                        <span id="file-name-display" class="file-name-text"></span>
+                    </div>
 
-        {% if resultado and not resultado.erro %}
-        <div class="card result-card">
-            <div class="result-header">
-                <h3>Relatório da Análise</h3>
-                <span class="badge {{ resultado.categoria }}">{{ resultado.categoria }}</span>
-            </div>
-            
-            <div class="result-body">
-                <div class="section">
-                    <h4>Resumo da Entrada</h4>
-                    <p class="preview-text">"{{ resultado.original }}"</p>
-                </div>
-                <hr>
-                <div class="section">
-                    <h4>Sugestão de Resposta</h4>
-                    <div class="response-box">{{- resultado.sugestao -}}</div>
-                    <button class="btn-copy" onclick="copiarTexto()">Copiar Resposta</button>
+                    <div class="actions">
+                        <button type="submit" id="submitBtn" class="btn-primary" disabled>Iniciar Análise</button>
+                        <button type="button" id="resetBtn" class="btn-secondary">Limpar</button>
+                    </div>
+                </form>
+
+                <div id="loadingState" class="hidden">
+                    <div class="spinner"></div>
+                    <p>Processando...</p>
                 </div>
             </div>
+
+            {% if resultado and not resultado.erro %}
+            <div class="card result-card">
+                <div class="result-header">
+                    <h3>Relatório da Análise</h3>
+                    <span class="badge {{ resultado.categoria }}">{{ resultado.categoria }}</span>
+                </div>
+
+                <div class="result-body">
+                    <div class="section">
+                        <h4>Resumo da Entrada</h4>
+                        <p class="preview-text">"{{ resultado.original }}"</p>
+                    </div>
+                    <hr>
+                    <div class="section">
+                        <h4>Sugestão de Resposta</h4>
+                        <div class="response-box">{{- resultado.sugestao -}}</div>
+                        <button class="btn-copy" onclick="copiarTexto()">Copiar Resposta</button>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            {% if resultado and resultado.erro %}
+            <div class="card error-card">
+                <h3>Erro no Processamento</h3>
+                <p>{{ resultado.erro }}</p>
+            </div>
+            {% endif %}
         </div>
-        {% endif %}
-        
-        {% if resultado and resultado.erro %}
-        <div class="card error-card">
-            <h3>Erro no Processamento</h3>
-            <p>{{ resultado.erro }}</p>
-        </div>
-        {% endif %}
     </div>
-</div>
 
-<script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script src="{{ url_for('static', filename='theme.js') }}"></script>
 </body>
+</body>
+
 </html>

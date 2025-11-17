@@ -1,43 +1,52 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | FinFlow</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/favicon.png') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
-    
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
 </head>
+
 <body>
 
-<div class="main-wrapper">
-    <header class="app-header">
-        <a href="/" class="nav-link">Voltar ao Classificador</a>
-    </header>
-
-    <div class="container">
-        <h2>Dashboard de Análise</h2>
-        <p class="description">Visão geral do volume e classificação de e-mails processados.</p>
-
-        <div class="dashboard-grid"> 
-            <div class="chart-card pizza">
-                <h3>Total de Classificações</h3>
-                <canvas id="pizzaChart"></canvas>
+    <div class="main-wrapper">
+        <header class="app-header">
+            <div class="logo">AutoU <span class="subtitle">AI Solutions</span></div>
+            <div class="header-controls">
+                <a href="/" class="nav-link">Voltar</a>
+                <button id="theme-toggle" class="theme-toggle-btn" aria-label="Alternar tema">🌙</button>
             </div>
-            <div class="chart-card barras">
-                <h3>Volume por Dia (Últimos 7 dias)</h3>
-                <canvas id="barChart"></canvas>
+        </header>
+
+        <div class="container">
+            <h2>Dashboard de Análise</h2>
+            <p class="description">Visão geral do volume e classificação de e-mails processados.</p>
+
+            <div class="dashboard-grid">
+                <div class="chart-card pizza">
+                    <h3>Total de Classificações</h3>
+                    <canvas id="pizzaChart"></canvas>
+                </div>
+                <div class="chart-card barras">
+                    <h3>Volume por Dia (Últimos 7 dias)</h3>
+                    <canvas id="barChart"></canvas>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<div id="dashboard-data-container" data-json='{{ dados_dashboard | tojson | safe }}' style="display: none;"></div>
+    <div id="dashboard-data-container" data-json='{{ dados_dashboard | tojson | safe }}' style="display: none;"></div>
 
-<script src="{{ url_for('static', filename='dashboard.js') }}"></script>
-
+    <script src="{{ url_for('static', filename='dashboard.js') }}"></script>
+    <script src="{{ url_for('static', filename='theme.js') }}"></script>
 </body>
+</body>
+
 </html>
