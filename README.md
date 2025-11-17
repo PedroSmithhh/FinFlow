@@ -2,7 +2,7 @@
 
 **Uma ferramenta inteligente de triagem e resposta de e-mails, potencializada por IA Generativa e com deploy automatizado no Google Cloud.**
 
-## **📖 Índice**
+## **Sumário**
 
 * [Sobre o Projeto](#sobre-o-projeto)  
 * [Principais Funcionalidades](#principais-funcionalidades)  
