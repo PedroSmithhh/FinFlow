@@ -39,7 +39,7 @@ O sistema não apenas classifica um e-mail, mas também gera uma resposta profis
 4. **Armazenamento:**  
    * O Flask divide a string. A categoria (PRODUTIVO) é enviada para o database.py.  
    * O database.py se conecta ao banco **PostgreSQL** (hospedado no Supabase) e insere o novo registro.  
-   * O resultado completo (categoria \+ sugestão) é salvo na session do usuário.  
+   * O resultado completo (categoria + sugestão) é salvo na session do usuário.  
 5. **Redirecionamento (PRG):** O servidor redireciona o usuário de volta para a página principal.  
 6. **Exibição:** A página é recarregada via GET, o Flask lê o resultado da session e o injeta no HTML com o Jinja2.  
 7. **Dashboard:**  
@@ -69,23 +69,23 @@ O sistema não apenas classifica um e-mail, mas também gera uma resposta profis
 
 Estes passos são para rodar o projeto em seu ambiente local para desenvolvimento.
 
-### **1\. Pré-requisitos**
+### **1. Pré-requisitos**
 
 * [Python 3.9+](https://www.python.org/downloads/)  
 * [Git](https://www.google.com/search?q=https://git-scm.com/downloads)
 
-### **2\. Clonar o Repositório**
+### **2. Clonar o Repositório**
 
 ```bash
    git clone https://github.com/pedrosmithhh/FinFlow.git
 ```
-### **3\. Configurar Ambiente Virtual**
+### **3. Configurar Ambiente Virtual**
 
 ```bash 
    python -m venv venv
 ```
 
-### **4\. Instalar Dependências**
+### **4. Instalar Dependências**
 
 Instale todas as bibliotecas Python necessárias.
 
@@ -98,19 +98,19 @@ Crie um arquivo chamado .env dentro da pasta backend/. Este arquivo armazena seu
 
 ```env
 # Obtenha sua chave de API no Google AI Studio  
-API\_KEY=SUA\_CHAVE\_SECRETA\_DO\_GEMINI\_AQUI
+API_KEY=SUA_CHAVE_SECRETA_DO_GEMINI_AQUI
 ```
 
 ```env
 # Use qualquer string longa e aleatória  
-FLASK\_SECRET\_KEY=SUA\_CHAVE\_SECRETA\_ALEATORIA\_DO\_FLASK
+FLASK_SECRET_KEY=SUA_CHAVE_SECRETA_ALEATORIA_DO_FLASK
 ```
 ```env
 # String de conexão URI do seu banco Supabase  
-DATABASE\_URL=postgresql://postgres:\[SUA\_SENHA\]@db.\[SEU\_HOST\].supabase.co:5432/postgres
+DATABASE_URL=postgresql://postgres:\[SUA_SENHA]@db.\[SEU_HOST].supabase.co:5432/postgres
 ```
 
-### **6\. Executar a Aplicação Localmente**
+### **6. Executar a Aplicação Localmente**
 
 Antes de rodar, crie as tabelas no seu banco Supabase (veja a seção de Deploy).
 
@@ -130,7 +130,7 @@ Este projeto está configurado para deploy automático. Os passos de configuraç
    * Crie um projeto no Google Cloud.  
    * Ative as APIs: Cloud Run, Cloud Build, Secret Manager, Artifact Registry.  
    * Crie um repositório no Artifact Registry (ex: finflow-repo).  
-   * Salve suas três variáveis (API\_KEY, FLASK\_SECRET\_KEY, DATABASE\_URL) no Secret Manager (ex: FINFLOW\_API\_KEY, etc).  
+   * Salve suas três variáveis (API_KEY, FLASK_SECRET_KEY, DATABASE_URL) no Secret Manager (ex: FINFLOW_API_KEY, etc).  
 4. **Configurar Permissões (IAM):** Dê ao Agente de Serviço do Cloud Build (...@cloudbuild.gserviceaccount.com) os papéis de Cloud Run Admin e Secret Manager Secret Accessor.  
 5. **Criar o Gatilho (Trigger):** No Cloud Build, crie um gatilho que monitora a branch main e aponta para o arquivo cloudbuild.yaml.
 
