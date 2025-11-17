@@ -1,0 +1,29 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: [
+    'build',
+    '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/finflow-repo/finflow:latest',
+    '.'
+  ]
+
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/finflow-repo/finflow:latest']
+
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args:
+    - 'run'
+    - 'deploy'
+    - 'finflow-service'
+    - '--image=us-central1-docker.pkg.dev/$PROJECT_ID/finflow-repo/finflow:latest'
+    - '--region=us-central1'
+    - '--platform=managed'
+    - '--allow-unauthenticated'
+    - '--update-secrets=FINFLOW_API_KEY=FINFLOW_API_KEY:latest'
+    - '--update-secrets=FINFLOW_FLASK_KEY=FINFLOW_FLASK_KEY:latest'
+    - '--update-secrets=FINFLOW_DB_URL=FINFLOW_DB_URL:latest'
+
+images:
+- 'us-central1-docker.pkg.dev/$PROJECT_ID/finflow-repo/finflow:latest'
+
+timeout: '1600s'

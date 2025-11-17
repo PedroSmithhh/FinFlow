@@ -1,69 +1,81 @@
-import sqlite3
+import psycopg2
 import os
 from datetime import datetime
 
-DIRETORIO_ATUAL = os.path.dirname(os.path.abspath(__file__))
-# Caminho normalizado para o arquivo de banco de dados (garante compatibilidade entre OS)
-DB_PATH = os.path.normpath(os.path.join(DIRETORIO_ATUAL, '..', 'data', 'historico.db'))
+DATABASE_URL = os.getenv("DATABASE_URL")
 
-# Garante que o diretório exista (sqlite não cria diretórios automaticamente)
-DB_DIR = os.path.dirname(DB_PATH)
-os.makedirs(DB_DIR, exist_ok=True)
+def get_db_connection():
+    """Cria uma conexão com o banco de dados PostgreSQL."""
+    try:
+        conn = psycopg2.connect(DATABASE_URL)
+        return conn
+    except Exception as e:
+        print(f"Erro ao conectar ao banco de dados: {e}")
+        return None
 
 def init_db():
     """
-    Cria a tabela 'historico' no banco de dados, caso ela não exista.
+    Cria a tabela 'historico' no banco PostgreSQL, caso ela não exista.
     """
     try:
-        conn = sqlite3.connect(DB_PATH)
+        conn = get_db_connection()
+        if conn is None:
+            raise Exception("Não foi possível conectar ao banco.")
+            
         cursor = conn.cursor()
         
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS historico (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id SERIAL PRIMARY KEY,
             categoria TEXT NOT NULL,
-            data TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         );
         """)
         
         conn.commit()
+        cursor.close()
         conn.close()
-        print("Banco de dados inicializado com sucesso.")
+        print("Banco de dados (PostgreSQL) inicializado com sucesso.")
     except Exception as e:
-        print(f"Erro ao inicializar o banco de dados: {e}")
+        print(f"Erro ao inicializar o banco de dados (PostgreSQL): {e}")
 
 def salvar_historico(categoria):
     """
-    Salva um novo registro na tabela 'historico'.
+    Salva um novo registro na tabela 'historico' do PostgreSQL.
     """
     try:
-        conn = sqlite3.connect(DB_PATH)
+        conn = get_db_connection()
+        if conn is None:
+            raise Exception("Não foi possível conectar ao banco para salvar.")
+            
         cursor = conn.cursor()
         
-        # Insere a categoria. A data é adicionada automaticamente
-        cursor.execute("INSERT INTO historico (categoria) VALUES (?)", (categoria,))
+        # PostgreSQL usa %s como placeholder, NÃO usa ?.
+        cursor.execute("INSERT INTO historico (categoria) VALUES (%s)", (categoria,))
         
         conn.commit()
+        cursor.close()
         conn.close()
     except Exception as e:
         print(f"Erro ao salvar histórico no banco de dados: {e}")
 
 def get_dados_dashboard():
     """
-    Consulta o banco de dados e retorna os dados agregados para o dashboard.
+    Consulta o banco PostgreSQL e retorna os dados agregados.
     """
     dados = {
-        # Dados para o gráfico de Pizza (Total)
         'pizza': {'produtivo': 0, 'improdutivo': 0},
-        # Dados para o gráfico de Barras (Últimos 7 dias)
         'barras': {'labels': [], 'data': []}
     }
     
     try:
-        conn = sqlite3.connect(DB_PATH)
+        conn = get_db_connection()
+        if conn is None:
+            raise Exception("Não foi possível conectar ao banco para ler dados.")
+
         cursor = conn.cursor()
 
-        # Query 1: Gráfico de Pizza (Total de classificações)
+        # Query 1: Gráfico de Pizza (Total)
         cursor.execute("SELECT categoria, COUNT(*) FROM historico GROUP BY categoria")
         for row in cursor.fetchall():
             if row[0].lower() == 'produtivo':
@@ -71,23 +83,24 @@ def get_dados_dashboard():
             elif row[0].lower() == 'improdutivo':
                 dados['pizza']['improdutivo'] = row[1]
 
-        # Query 2: Gráfico de Barras (Volume nos últimos 7 dias)
-        # Usamos a função DATE() do SQLite para agrupar por dia
+        # Query 2: Gráfico de Barras (Últimos 7 dias)
+        # A sintaxe do PostgreSQL para datas é diferente do SQLite.
         cursor.execute("""
-            SELECT DATE(data) as dia, COUNT(*) 
+            SELECT DATE(criado_em) as dia, COUNT(*) 
             FROM historico 
-            WHERE data >= DATE('now', '-7 days') 
+            WHERE criado_em >= (CURRENT_DATE - INTERVAL '7 days') 
             GROUP BY dia 
             ORDER BY dia ASC
         """)
         
         for row in cursor.fetchall():
-            dados['barras']['labels'].append(row[0]) # Ex: '2025-11-15'
-            dados['barras']['data'].append(row[1])   # Ex: 10
+            # Converte o objeto 'date' do Python para uma string formatada
+            dados['barras']['labels'].append(row[0].strftime('%Y-%m-%d'))
+            dados['barras']['data'].append(row[1])
 
+        cursor.close()
         conn.close()
     except Exception as e:
         print(f"Erro ao ler dados do dashboard: {e}")
     
     return dados
-
