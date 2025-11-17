@@ -5,11 +5,11 @@
 ## **📖 Índice**
 
 * [Sobre o Projeto](#sobre-o-projeto)  
-* [Principais Funcionalidades](#-principais-funcionalidades)  
-* [Como Funciona](#️-como-funciona)  
-* [Tech Stack](#-tech-stack)  
-* [Rodando Localmente](#-rodando-localmente)  
-* [Deploy em Produção (GCP)](#️-deploy-em-produção-gcp)  
+* [Principais Funcionalidades](#principais-funcionalidades)  
+* [Como Funciona](#️como-funciona)  
+* [Tech Stack](#tech-stack)  
+* [Rodando Localmente](#rodando-localmente)  
+* [Deploy em Produção (GCP)](#️deploy-em-produção-gcp)  
 
 ## **Sobre o Projeto**
 
