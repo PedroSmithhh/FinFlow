@@ -1,9 +1,4 @@
-.git
-.gitignore
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-.env
-venv/
-data/historico.db
+**
+!Dockerfile
+!requirements.txt
+!backend/
