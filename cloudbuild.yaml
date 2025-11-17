@@ -19,9 +19,9 @@ steps:
     - '--region=us-central1'
     - '--platform=managed'
     - '--allow-unauthenticated'
-    - '--update-secrets=FINFLOW_API_KEY=FINFLOW_API_KEY:latest'
-    - '--update-secrets=FINFLOW_FLASK_KEY=FINFLOW_FLASK_KEY:latest'
-    - '--update-secrets=FINFLOW_DB_URL=FINFLOW_DB_URL:latest'
+    - '--update-secrets=API_KEY=FINFLOW_API_KEY:latest'
+    - '--update-secrets=FLASK_SECRET_KEY=FINFLOW_FLASK_KEY:latest'
+    - '--update-secrets=DATABASE_URL=FINFLOW_DB_URL:latest'
 
 images:
 - 'us-central1-docker.pkg.dev/$PROJECT_ID/finflow-repo/finflow:latest'
